@@ -16,7 +16,9 @@ namespace SlackAPI.WebSocketMessages
             ChannelId = originalMessage.channel;
             Channel channel;
             ChannelName = client.ChannelLookup.TryGetValue(ChannelId, out channel) ? channel.name : string.Empty;
-            TeamName = client.MyTeam.id;
+            TeamId = client.MyTeam?.id;
+            TeamName = client.MyTeam?.name;
+            Timestamp = originalMessage.ts;
             Text = originalMessage.text;
         }
 
@@ -32,7 +34,7 @@ namespace SlackAPI.WebSocketMessages
 
         public string TeamName { get; private set; }
 
-        public DateTime TimeSpan { get; private set; }
+        public DateTime Timestamp { get; private set; }
 
         public string Text { get; private set; }
 
