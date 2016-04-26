@@ -133,6 +133,7 @@
     <Compile Include="WebSocketMessages\Hello.cs" />
     <Compile Include="WebSocketMessages\MessageReceived.cs" />
     <Compile Include="WebSocketMessages\NewMessage.cs" />
+    <Compile Include="WebSocketMessages\WrappedMessage.cs" />
     <Compile Include="WebSocketMessages\Ping.cs" />
     <Compile Include="WebSocketMessages\Pong.cs" />
     <Compile Include="WebSocketMessages\PresenceChange.cs" />

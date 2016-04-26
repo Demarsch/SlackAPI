@@ -11,6 +11,8 @@ namespace SlackAPI
 
         public event Action<NewMessage> OnMessageReceived;
 
+        public event EventHandler<MessageReceivedEventArgs> MessageReceived;
+
         bool HelloReceived;
         public const int PingInterval = 3000;
         int pinging;
@@ -194,12 +196,22 @@ namespace SlackAPI
         {
             if (OnMessageReceived != null)
                 OnMessageReceived(m);
+            var handler = MessageReceived;
+            if (handler != null)
+            {
+                handler(this, new MessageReceivedEventArgs(new WrappedMessage(m, this)));
+            }
         }
 
         public void FileShareMessage(FileShareMessage m)
         {
             if (OnMessageReceived != null)
                 OnMessageReceived(m);
+            var handler = MessageReceived;
+            if (handler != null)
+            {
+                handler(this, new MessageReceivedEventArgs(new WrappedMessage(m, this)));
+            }
         }
 
         public void PresenceChange(PresenceChange p)
@@ -216,5 +228,14 @@ namespace SlackAPI
 		{
 			underlyingSocket.Close();
 		}
+    }
+
+    public class MessageReceivedEventArgs : EventArgs
+    {
+        public MessageReceivedEventArgs(WrappedMessage message)
+        {
+            WrappedMessage = message;
+        }
+        public WrappedMessage WrappedMessage { get; private set; }
     }
 }
