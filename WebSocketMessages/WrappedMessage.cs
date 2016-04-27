@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SlackAPI.WebSocketMessages
 {
@@ -12,10 +8,10 @@ namespace SlackAPI.WebSocketMessages
         {
             UserId = originalMessage.user;
             User user;
-            UserName = client.UserLookup.TryGetValue(UserId, out user) ? user.name : string.Empty;
+            UserName = client.UserLookup.TryGetValue(UserId, out user) ? user?.name : string.Empty;
             ChannelId = originalMessage.channel;
             Channel channel;
-            ChannelName = client.ChannelLookup.TryGetValue(ChannelId, out channel) ? channel.name : string.Empty;
+            ChannelName = client.ChannelLookup.TryGetValue(ChannelId, out channel) ? channel?.name : string.Empty;
             TeamId = client.MyTeam?.id;
             TeamName = client.MyTeam?.name;
             Timestamp = originalMessage.ts;
